@@ -20,7 +20,7 @@ describe("POST to /api/register", () => {
     test("should return status 201 CREATED", () => {
         return request(server)
             .post("/api/auth/register")
-            .send({ username:"testname1", password:"testpassword" })
+            .send({ username:"testname2", password:"testpw2" })
             .then(res => {
                 expect(res.status).toBe(201);
         });
@@ -40,7 +40,7 @@ describe("POST to /api/login", () => {
     test("should return status 200 OK", () => {
         return request(server)
             .post("/api/auth/login")
-            .send({ username:"testname1", password:"testpassword" })
+            .send({ username:"testname2", password:"testpw2" })
             .then(res => {
                 expect(res.status).toBe(200);
         });
