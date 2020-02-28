@@ -16,21 +16,89 @@ describe("server", () => {
 });
 
 //register
-//1
+describe("POST to /api/register", () => {
+    test("should return status 201 CREATED", () => {
+        return request(server)
+            .post("/api/auth/register")
+            .send({ username:"testname1", password:"testpassword" })
+            .then(res => {
+                expect(res.status).toBe(201);
+        });
+    });
 
-//2
+    test("should return JSON formatted body", () => {
+        return request(server)
+            .post("/api/auth/login")
+            .then(res => {
+                expect(res.type).toMatch(/json/);
+        });
+    });
+});
 
 //login
-//1
+describe("POST to /api/login", () => {
+    test("should return status 200 OK", () => {
+        return request(server)
+            .post("/api/auth/login")
+            .send({ username:"testname1", password:"testpassword" })
+            .then(res => {
+                expect(res.status).toBe(200);
+        });
+    });
 
-//2
+    test("should return JSON formatted body", () => {
+        return request(server)
+            .post("/api/auth/login")
+            .then(res => {
+                expect(res.type).toMatch(/json/);
+        });
+    });
+});
+
 
 //get users
+describe("GET to /api/users", () => {
 //1
+    test("should return 200 OK", function() {
+    return request(server)
+        .get("/api/users")
+        .then(res => {
+            expect(res.status).toBe(200);
+        });
+    });  
 
 //2
+    test("should return JSON formatted body", function() {
+        return request(server)
+            .get("/api/users")
+            .then(res => {
+                expect(res.type).toMatch(/json/);
+            });
+    });
+}); 
 
 //get jokes
+describe("GET to /api/jokes", () => {
 //1
-
+    test("should return 200 OK", function() {
+        return request(server)
+            .get("/api/jokes")
+            .then(res => {
+                expect(res.status).toBe(200);
+            });
+        });  
 //2
+    test("should return JSON formatted body", function() {
+        return request(server)
+            .get("/api/jokes")
+            .then(res => {
+                expect(res.type).toMatch(/json/);
+            });
+        });
+//3
+    test("should return an array of cohorts (async version)", async function() {
+    const res = await request(server).get("/api/jokes");
+
+    expect(Array.isArray(res.body)).toBe(true);
+    });
+});
